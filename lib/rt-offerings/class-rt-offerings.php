@@ -279,7 +279,12 @@ if ( ! class_exists( 'Rt_Offerings' ) ) {
 					}
 					break;
 				case 'offering_count':
-					foreach ( $this->post_types as $posttype ) {
+					$posttypes = $this->post_types;
+					if ( in_array( $_GET['post_type'], $posttypes ) ) {
+						$posttypes = array( $_GET['post_type'] );
+					}
+
+					foreach ( $posttypes as $posttype ) {
 						$posts = new WP_Query( array(
 							'post_type' => $posttype,
 							'post_status' => 'any',
